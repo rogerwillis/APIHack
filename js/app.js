@@ -27,11 +27,10 @@ $(document).ready(function () {
             type: 'GET',
             datatype: 'json',
             success: function (data) {
-                $("#loader").hide();
                 $(".results").text(JSON.stringify(data)); 
                 $("#myModal").modal("show");
                 $(".btn-submit").text("Yodafy! Again!");
-                $(".yoda-input").text("");
+                $(".yoda-input").val("");
 
             },
             error: function(err) {
