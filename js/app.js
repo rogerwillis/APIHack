@@ -1,13 +1,18 @@
 $(document).ready(function () {
-
+    
+   
 
     $(".btn-submit").on('click', function () {
 
-        input = $(".yoda-input").val();
-        console.log(input);
+        var input = $(".yoda-input").val();
+        
 
         if (input != "") {
+           
             yodafy(input);
+        } else {
+            $(".results").text('Wrong, something is!!! Put some text in sir!!! Hmmmmmm.');
+            $("#myModal").modal("show");
         }
 
     });
@@ -15,17 +20,29 @@ $(document).ready(function () {
 
 
     var yodafy = function (input) {
-
-
+        $(".btn-submit").text("loading...");
+       
         $.ajax({
             url: 'https://yoda.p.mashape.com/yoda?sentence=' + input + '',
             type: 'GET',
             datatype: 'json',
-            success: function (data) { $(".results").text(JSON.stringify(data)); },
-            error: function (err) { $(".results").text('Something is wrong!!! Please fix.'); },
+            success: function (data) {
+                $("#loader").hide();
+                $(".results").text(JSON.stringify(data)); 
+                $("#myModal").modal("show");
+                $(".btn-submit").text("Yodafy! Again!");
+                $(".yoda-input").text("");
+
+            },
+            error: function(err) {
+                $(".results").text('Something is wrong!!! Please fix.');
+                $("#myModal").modal("show");
+                $(".btn-submit").text("Yodafy!");
+            },
             beforeSend: function (xhr) {
-                xhr.setRequestHeader("X-Mashape-Authorization", "hdLK3NDN7rmsho9QdKXVrBvOqvwHp1SHVZSjsnRcPXWNbXxxKo"); // Enter here your Mashape key
-            }
+                xhr.setRequestHeader("X-Mashape-Authorization", "hdLK3NDN7rmsho9QdKXVrBvOqvwHp1SHVZSjsnRcPXWNbXxxKo"); // Mashape key
+            },
+            
         });
 
 

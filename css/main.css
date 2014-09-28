@@ -1,2 +1,3 @@
 .yoda { background: #060608 url('../img/yoda.jpg') no-repeat; background-size: cover;margin-top: 31%;}
 .margin-10 { margin: 10px;}
+#loadingmessage { position:absolute;}
